@@ -1,6 +1,7 @@
 <?php
 require_once("coreS.php");
 submit();
+header( "refresh:10;" );
 ?>
 
 <!DOCTYPE html>

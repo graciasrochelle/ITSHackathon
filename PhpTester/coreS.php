@@ -56,7 +56,7 @@ function getStudentID(){
 };
 
 function getQuestion(){
-    $fileLoc = "log.txt";
+    $fileLoc = "slog.txt";
     $text = "";
     $file = fopen($fileLoc, 'a+');
     while (!feof($file)) {
