@@ -34,10 +34,7 @@ submit();
         <button id="addcourse" onclick="window.location.href='http://hackathon.gayurug.com'">
           <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
           <span>Log Out</span></button>
-          <select name="sLang">
-              <option value="en">English</option>
-              <option value="zh">Chinese</option>
-            </select>
+
         </div>
       </div>
       <div class="content">
@@ -52,13 +49,16 @@ submit();
                   Course Name
                 </div>
                 <div class="card-content">
-                  <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
+                  <p><?php echo getQuestion();?></p>
                   </div>
                   <div class="card-action">
                     <form method="post">
                       <input type="text" name="sMsg" placeholder="Write your reply...">
-                      <button type="submit" name="btnSubmit">Send</button>
+                        <select style="width:20%; margin-right: 2%;" name="sLang">
+                            <option value="en">English</option>
+                            <option value="zh">Chinese</option>
+                        </select>
+                      <button style="width: 15%;" type="submit" name="btnSubmit">Send</button>
                     </form>
                   </div>
                 </div>

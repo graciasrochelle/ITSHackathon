@@ -2,10 +2,20 @@
 
 function submit()
 {
-    if (isset($_POST['btnSubmit']) && !empty($_POST['msg'])) {
-        $id = getLocationID();
-        $message = $_POST['lmsg'];
-        $lang = "en";
+    if (isset($_POST['btnSubmit']) && !empty($_POST['sMsg'])) {
+        $id = getStudentID();
+        $message = $_POST['sMsg'];
+        $lang = $_POST['sLang'];
+
+
+        $fileLoc = "log.txt";
+        $file = fopen($fileLoc, 'a+');
+                $entry = "You: " . $message . PHP_EOL;
+                fwrite($file, $entry);
+        fclose($file);
+
+
+
         saveMessage($id, $message, $lang);
 
 }}
@@ -41,10 +51,22 @@ function submit()
              }
         }
 
-function getLocationID(){
-    return "10.2.12";
+function getStudentID(){
+    return "s12345678";
 };
 
 function getQuestion(){
-    return "To whom to may concern, I require assistance of X topic.";
+    $fileLoc = "log.txt";
+    $text = "";
+    $file = fopen($fileLoc, 'r');
+    while (!feof($file)) {
+        $data = fgets($file);
+        if (!$data == '') {
+            $text .=  "<p>" . $data . "</p><hr/>" ;
+        }
+    }
+    fclose($file);
+
+
+    return $text;
 }
