@@ -53,7 +53,7 @@ submit();
                   </div>
                   <div class="card-action">
                     <form method="post">
-                      <input type="text" name="reply" placeholder="Write your reply...">
+                      <input type="text" name="sMsg" placeholder="Write your reply...">
                       <select name="sLang">
                         <option value="en">English</option>
                         <option value="zh">Chinese</option>

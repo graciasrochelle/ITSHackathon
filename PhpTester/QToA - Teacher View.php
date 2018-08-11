@@ -1,4 +1,8 @@
 <!DOCTYPE html><html class=''>
+<?php
+require_once("core.php");
+submit();
+?>
 <head>
     <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
@@ -43,7 +47,7 @@
                     <div class="card-action">
                 <form method="post">
                             <input type="text" name="lmsg" placeholder="Write your reply...">
-                            <button type="submit" name="btnSubmit">Send</button>
+                            <button type="submit" name="btnLSubmit">Send</button>
                 </form>
                         </div>
                     </div>
