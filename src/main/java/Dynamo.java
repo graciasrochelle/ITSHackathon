@@ -37,9 +37,14 @@ public class Dynamo {
         try {
             System.out.println("Adding a new item...");
             PutItemOutcome outcome = table
-                    .putItem(new Item().withPrimaryKey("StudentID", studentID)
-                            .with("SLang", sLang).with("Dlang", dLang).with("Type", type)
-                            .with("TText", "FIX ME"));
+                    .putItem(new Item().withPrimaryKey("StudentID", String.valueOf(System.currentTimeMillis()))
+                            .with("sID", studentID)
+                            .with("message", message)
+                            .with("dLang", dLang)
+                            .with("sLang", sLang)
+                            .with("type", type)
+                            .with("isTranslated", isTranslated)
+                    );
 
             System.out.println("PutItem succeeded:\n" + outcome.toString());
 
