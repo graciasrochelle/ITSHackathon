@@ -24,9 +24,7 @@ public class Main {
                 .build();
 
 
-        while(true){
-            
-        }
+
         TranslateTextRequest request = new TranslateTextRequest()
                 .withText("Hello, world")
                 .withSourceLanguageCode("en")
