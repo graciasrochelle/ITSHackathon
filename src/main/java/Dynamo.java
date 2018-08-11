@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -10,7 +12,7 @@ import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
-import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+import com.amazonaws.services.dynamodbv2.model.*;
 
 public class Dynamo {
 
@@ -46,7 +48,7 @@ public class Dynamo {
                             .with("message", message)
                             .with("dLang", dLang)
                             .with("sLang", sLang)
-                            .with("type", type)
+                            .with("utype", type)
                             .with("isTranslated", isTranslated)
                     );
 
@@ -104,37 +106,35 @@ public class Dynamo {
         String message = updatedData.get(1);
         String dLang = updatedData.get(2);
         String sLang = updatedData.get(3);
-        boolean type1 = Boolean.parseBoolean(updatedData.get(4));
-        boolean isTranslated = Boolean.parseBoolean(updatedData.get(4));
+        boolean type = Boolean.parseBoolean(updatedData.get(4));
+        boolean isTranslated = Boolean.parseBoolean(updatedData.get(5));
+
+        System.out.println(studentID);
 
         for (int i = 0; i < updatedData.size()/5; i++) {
-            ID = updatedData.get(i*5+3);
+            ID = updatedData.get(i*5);
         }
 
         UpdateItemSpec updateItemSpec = new UpdateItemSpec()
-                .withPrimaryKey(new PrimaryKey("ID",ID))
-                .withUpdateExpression("set dLang=:d,sLang=:s,message=:m,isTranslated=:t,types=:ty")
+                .withPrimaryKey("ID", ID)
+                .withUpdateExpression("set dLang= :d ,isTranslated = :val, message= :m,sLang= :s,studentID= :sI,utype=:t")
                 .withValueMap(new ValueMap()
                 .withString(":d",dLang)
-                .withString(":s",sLang)
+                .withBoolean(":val", isTranslated)
                 .withString(":m",message)
-                .withBoolean(":t",isTranslated)
-                .withBoolean(":ty",type1));
+                .withString(":s",sLang)
+                .withString(":sI","s31234567")
+                .withBoolean(":t",type));
 
         try {
             System.out.println("Updating the item...");
             UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
             System.out.println("UpdateItem succeeded:\n" + outcome.getItem().toJSONPretty());
-
-        }
-        catch (Exception e) {
+        }catch (Exception e){
             System.err.println("Unable to update item: " + dLang + " " + sLang + " " + message + " " + isTranslated + " "
-            + isTranslated + " " + type1);
+                    + isTranslated + " " + type);
             System.err.println(e.getMessage());
-            e.printStackTrace();
         }
-
-
     }
 
 
