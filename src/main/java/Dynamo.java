@@ -7,6 +7,10 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 
 public class Dynamo {
 
@@ -90,7 +94,47 @@ public class Dynamo {
             System.err.println(e.getMessage());
         }
 
+
         return translateValue;
+    }
+
+    public void update(ArrayList<String> updatedData){
+        String ID = "";
+        String studentID = updatedData.get(0);
+        String message = updatedData.get(1);
+        String dLang = updatedData.get(2);
+        String sLang = updatedData.get(3);
+        boolean type1 = Boolean.parseBoolean(updatedData.get(4));
+        boolean isTranslated = Boolean.parseBoolean(updatedData.get(4));
+
+        for (int i = 0; i < updatedData.size()/5; i++) {
+            ID = updatedData.get(i*5+3);
+        }
+
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec()
+                .withPrimaryKey(new PrimaryKey("ID",ID))
+                .withUpdateExpression("set dLang=:d,sLang=:s,message=:m,isTranslated=:t,types=:ty")
+                .withValueMap(new ValueMap()
+                .withString(":d",dLang)
+                .withString(":s",sLang)
+                .withString(":m",message)
+                .withBoolean(":t",isTranslated)
+                .withBoolean(":ty",type1));
+
+        try {
+            System.out.println("Updating the item...");
+            UpdateItemOutcome outcome = table.updateItem(updateItemSpec);
+            System.out.println("UpdateItem succeeded:\n" + outcome.getItem().toJSONPretty());
+
+        }
+        catch (Exception e) {
+            System.err.println("Unable to update item: " + dLang + " " + sLang + " " + message + " " + isTranslated + " "
+            + isTranslated + " " + type1);
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+
     }
 
 
