@@ -1,5 +1,5 @@
 <?php
-require_once("core.php");
+require_once("coreS.php");
 submit();
 ?>
 
@@ -30,10 +30,14 @@ submit();
           </li>
         </ul>
       </div>
-      <div id="bottom-bar" class="onclick-menu" tabindex="0" >
+      <div id="bottom-bar" >
         <button id="addcourse" onclick="window.location.href='http://hackathon.gayurug.com'">
           <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
           <span>Log Out</span></button>
+          <select name="sLang">
+              <option value="en">English</option>
+              <option value="zh">Chinese</option>
+            </select>
         </div>
       </div>
       <div class="content">
@@ -45,7 +49,7 @@ submit();
             <div class="col m12">
               <div class="card">
                 <div class="card-title" style="margin-left:15px!important;padding-top:12px;">
-                  Student ID
+                  Course Name
                 </div>
                 <div class="card-content">
                   <p>I am a very simple card. I am good at containing small bits of information.
@@ -54,10 +58,6 @@ submit();
                   <div class="card-action">
                     <form method="post">
                       <input type="text" name="sMsg" placeholder="Write your reply...">
-                      <select name="sLang">
-                        <option value="en">English</option>
-                        <option value="zh">Chinese</option>
-                      </select>
                       <button type="submit" name="btnSubmit">Send</button>
                     </form>
                   </div>
