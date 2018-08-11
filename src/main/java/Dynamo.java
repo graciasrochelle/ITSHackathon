@@ -1,12 +1,12 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
-import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 
 public class Dynamo {
 
@@ -37,18 +37,62 @@ public class Dynamo {
         try {
             System.out.println("Adding a new item...");
             PutItemOutcome outcome = table
-                    .putItem(new Item().withPrimaryKey("StudentID", studentID)
-                            .with("SLang", sLang).with("Dlang", dLang).with("Type", type)
-                            .with("TText", "FIX ME"));
+                    .putItem(new Item().withPrimaryKey("ID", String.valueOf(System.currentTimeMillis()))
+                            .with("studentID", studentID)
+                            .with("message", message)
+                            .with("dLang", dLang)
+                            .with("sLang", sLang)
+                            .with("type", type)
+                            .with("isTranslated", isTranslated)
+                    );
 
-            System.out.println("PutItem succeeded:\n" + outcome.toString());
+            System.out.println("PutItem succeeded");
 
         } catch (Exception e) {
-            System.err.println("Unable to add item: " + dLang + " " + sLang);
+            System.err.println("Unable to add item");
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public ArrayList<String> load(){
+        String dLang;
+        boolean isTranslated;
+        String sLang;
+        String ID;
+        String message;
+
+        ArrayList<String> translateValue = new ArrayList<>();
+
+        ScanSpec scanSpec = new ScanSpec().withProjectionExpression("ID,dLang,message,sLang,isTranslated");
+
+        try {
+            ItemCollection<ScanOutcome> items = table.scan(scanSpec);
+
+            Iterator<Item> iter = items.iterator();
+            while (iter.hasNext()){
+                Item item = iter.next();
+
+                dLang = item.getString("dLang");
+                isTranslated = item.getBOOL("isTranslated");
+                sLang = item.getString("sLang");
+                ID = item.getString("ID");
+                message = item.getString("message");
+
+                translateValue.add(dLang);
+                translateValue.add(String.valueOf(isTranslated));
+                translateValue.add(sLang);
+                translateValue.add(ID);
+                translateValue.add(message);
+            }
+
+        }catch (Exception e){
+            System.err.println("Unable to scan the table:");
             System.err.println(e.getMessage());
         }
 
-
+        return translateValue;
     }
+
+
 }
 

@@ -15,7 +15,7 @@ submit();
         <option value="en">English</option>
         <option value="zh">Chinese</option>
     </select>
-    <button type="submit" name="btnSubmit"/>
+    <button type="submit" name="btnSubmit">Submit</button>
 </form>
 
 </body>
