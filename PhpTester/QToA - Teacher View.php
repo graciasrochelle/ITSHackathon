@@ -2,6 +2,7 @@
 <?php
 require_once("coreL.php");
 submit();
+header( "refresh:10;" );
 ?>
 <head>
     <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
