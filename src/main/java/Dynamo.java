@@ -6,42 +6,51 @@ import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.xspec.S;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DynamoTest {
-    public static void main(String[] args) {
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+public class Dynamo {
+
+    AmazonDynamoDB client;
+    DynamoDB dynamoDB;
+    Table table;
+
+    Dynamo() {
+        client = AmazonDynamoDBClientBuilder.standard()
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("https://dynamodb.us-east-1.amazonaws.com", "us-east-1"))
                 .build();
 
-        DynamoDB dynamoDB = new DynamoDB(client);
+        dynamoDB = new DynamoDB(client);
 
-        Table table = dynamoDB.getTable("SQA");
+        table = dynamoDB.getTable("SQA");
+    }
 
-        String studentID = "S124";
-        String dLang = "EN";
-        String sLang = "ZH";
-        String type = "Q";
-        Boolean TText = true;
-        
+    public void save(ArrayList<String> userDetails) {
+
+        String studentID = userDetails.get(0);
+        String message = userDetails.get(1);
+        String dLang = userDetails.get(2);
+        String sLang = userDetails.get(3);
+        Boolean type = Boolean.parseBoolean(userDetails.get(4));
+        Boolean isTranslated = Boolean.parseBoolean(userDetails.get(5));
+
 
         try {
             System.out.println("Adding a new item...");
             PutItemOutcome outcome = table
                     .putItem(new Item().withPrimaryKey("StudentID", studentID)
-                           .with("SLang",sLang).with("Dlang",dLang).with("Type",type)
-                            .with("TText",TText));
+                            .with("SLang", sLang).with("Dlang", dLang).with("Type", type)
+                            .with("TText", "FIX ME"));
 
             System.out.println("PutItem succeeded:\n" + outcome.toString());
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Unable to add item: " + dLang + " " + sLang);
             System.err.println(e.getMessage());
         }
 
 
-
     }
 }
+

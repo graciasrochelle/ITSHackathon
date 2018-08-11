@@ -30,7 +30,13 @@ function submit()
                     fwrite($file, $entry);
                     $entry = $message . PHP_EOL;
                     fwrite($file, $entry);
+                    $entry = "en" . PHP_EOL;
+                    fwrite($file, $entry);
                     $entry = $lang . PHP_EOL;
+                    fwrite($file, $entry);
+                    $entry = "0" . PHP_EOL;
+                    fwrite($file, $entry);
+                    $entry = "0" . PHP_EOL;
                     fwrite($file, $entry);
 
                     fclose($file);
