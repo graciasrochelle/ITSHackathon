@@ -1,11 +1,9 @@
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
-import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.xspec.S;
 
 import java.util.HashMap;
@@ -22,24 +20,20 @@ public class DynamoTest {
         Table table = dynamoDB.getTable("SQA");
 
         String studentID = "S124";
-        String dLang = "ZH";
-        String sLang = "EN";
+        String dLang = "EN";
+        String sLang = "ZH";
         String type = "Q";
-        String TText = null;
-
-        final Map<String,Object> infoMap = new HashMap<String,Object>();
-        infoMap.put("studentID", studentID);
-        infoMap.put("SLang", sLang);
-        infoMap.put("Dlang",dLang);
-        infoMap.put("Type",type);
+        Boolean TText = true;
+        
 
         try {
             System.out.println("Adding a new item...");
             PutItemOutcome outcome = table
-                    .putItem(new Item().withPrimaryKey("StudentID", studentID, "Dlang", dLang)
-                            .withMap("info", infoMap));
+                    .putItem(new Item().withPrimaryKey("StudentID", studentID)
+                           .with("SLang",sLang).with("Dlang",dLang).with("Type",type)
+                            .with("TText",TText));
 
-            System.out.println("PutItem succeeded:\n" + outcome.getPutItemResult());
+            System.out.println("PutItem succeeded:\n" + outcome.toString());
 
         }
         catch (Exception e) {
