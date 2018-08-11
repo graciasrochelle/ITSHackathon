@@ -19,9 +19,8 @@ function submit()
         {
             $count = 0;
             $saved = false;
-
             while(!$saved){
-                $fileLoc = "data/message" . $count . ".txt";
+                $fileLoc = "../data/message" . $count . ".txt";
 
                 if(!file_exists($fileLoc)) {
 
@@ -30,7 +29,7 @@ function submit()
                     fwrite($file, $entry);
                     $entry = $message . PHP_EOL;
                     fwrite($file, $entry);
-                    $entry = "en" . PHP_EOL;
+                    $entry = "zh" . PHP_EOL;
                     fwrite($file, $entry);
                     $entry = $lang . PHP_EOL;
                     fwrite($file, $entry);
