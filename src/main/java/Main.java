@@ -4,7 +4,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.translate.AmazonTranslate;
 import com.amazonaws.services.translate.AmazonTranslateClientBuilder;
 import com.amazonaws.services.translate.model.TranslateTextRequest;
-import com.amazonaws.services.translate.model.TranslateTextResult;
+import com.amazonaws.services. translate.model.TranslateTextResult;
 
 import java.util.Scanner;
 
