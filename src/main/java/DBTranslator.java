@@ -1,6 +1,6 @@
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 
-public class DBTranslator implements Runnable{
+public class DBTranslator{
 
     private DynamoDB db;
 
@@ -8,8 +8,8 @@ public class DBTranslator implements Runnable{
         this.db = db;
     }
 
-    @Override
-    public void run() {
-
-    }
+//    @Override
+//    public void run() {
+//
+//    }
 }
