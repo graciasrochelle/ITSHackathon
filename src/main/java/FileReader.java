@@ -45,12 +45,17 @@ public class FileReader implements Runnable {
 
     public ArrayList<String> listFilesForFolder(final File folder) {
         ArrayList<String> files = new ArrayList<String>();
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry);
-            } else {
-                files.add(fileEntry.getName());
+        try {
+            for (final File fileEntry : folder.listFiles()) {
+                if (fileEntry.isDirectory()) {
+                    listFilesForFolder(fileEntry);
+                } else {
+                    files.add(fileEntry.getName());
+                }
             }
+
+        }catch (Exception e){
+            e.getStackTrace();
         }
         return files;
     }
