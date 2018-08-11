@@ -65,7 +65,7 @@ public class Dynamo {
         String ID;
         String message;
 
-        ArrayList<String> translateValue = new ArrayList<>();
+        ArrayList<String> translateValue = new ArrayList<String>();
 
         ScanSpec scanSpec = new ScanSpec().withProjectionExpression("ID,dLang,message,sLang,isTranslated");
 
