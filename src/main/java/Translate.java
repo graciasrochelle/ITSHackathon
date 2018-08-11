@@ -17,13 +17,11 @@ public class Translate {
     }
 
    public String translateMessage(String msg, String sLang, String dLang, boolean hasTranslated){
-
         if(hasTranslated){
             String temp = dLang;
             dLang = sLang;
             sLang = temp;
         }
-
        TranslateTextRequest request = new TranslateTextRequest()
                .withText(msg)
                .withSourceLanguageCode(sLang)

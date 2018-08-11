@@ -7,9 +7,9 @@ public class Main {
         AWSCredentialsProvider awsCreds = DefaultAWSCredentialsProviderChain.getInstance();
         Translate tl = new Translate(awsCreds);
         Dynamo db = new Dynamo();
-
-
-        System.out.println(tl.translateMessage("Test","en","zh",false));
-
+        FileReader myRunnable = new FileReader(db);
+        Thread t = new Thread(myRunnable);
+        t.start();
+        System.out.println(tl.translateMessage("Test","en","es",false));
     }
 }
