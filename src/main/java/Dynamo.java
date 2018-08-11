@@ -37,8 +37,8 @@ public class Dynamo {
         try {
             System.out.println("Adding a new item...");
             PutItemOutcome outcome = table
-                    .putItem(new Item().withPrimaryKey("StudentID", String.valueOf(System.currentTimeMillis()))
-                            .with("sID", studentID)
+                    .putItem(new Item().withPrimaryKey("ID", String.valueOf(System.currentTimeMillis()))
+                            .with("studentID", studentID)
                             .with("message", message)
                             .with("dLang", dLang)
                             .with("sLang", sLang)
