@@ -49,13 +49,13 @@ submit();
                   Course Name
                 </div>
                 <div class="card-content">
-                  <p><?php echo getQuestion();?></p>
+                  <p><?php echo getQuestion(); ?></p>
                   </div>
                   <div class="card-action">
                     <form method="post">
                       <input type="text" name="sMsg" placeholder="Write your reply...">
                         <select style="width:20%; margin-right: 2%;" name="sLang">
-                            <option value="en">English</option>
+                            <option selected value="en">English</option>
                             <option value="zh">Chinese</option>
                         </select>
                       <button style="width: 15%;" type="submit" name="btnSubmit">Send</button>

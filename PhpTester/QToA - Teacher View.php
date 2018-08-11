@@ -1,6 +1,6 @@
 <!DOCTYPE html><html class=''>
 <?php
-require_once("core.php");
+require_once("coreL.php");
 submit();
 ?>
 <head>
@@ -41,12 +41,11 @@ submit();
                         Student ID
                     </div>
                     <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
+                      <?php echo getQuestion(); ?>
                     </div>
                     <div class="card-action">
                 <form method="post">
-                            <input type="text" name="lmsg" placeholder="Write your reply...">
+                            <input type="text" name="lMsg" placeholder="Write your reply...">
                             <button type="submit" name="btnLSubmit">Send</button>
                 </form>
                         </div>

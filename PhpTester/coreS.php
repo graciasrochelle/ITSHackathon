@@ -8,7 +8,7 @@ function submit()
         $lang = $_POST['sLang'];
 
 
-        $fileLoc = "log.txt";
+        $fileLoc = "sLog.txt";
         $file = fopen($fileLoc, 'a+');
                 $entry = "You: " . $message . PHP_EOL;
                 fwrite($file, $entry);
@@ -58,7 +58,7 @@ function getStudentID(){
 function getQuestion(){
     $fileLoc = "log.txt";
     $text = "";
-    $file = fopen($fileLoc, 'r');
+    $file = fopen($fileLoc, 'a+');
     while (!feof($file)) {
         $data = fgets($file);
         if (!$data == '') {
