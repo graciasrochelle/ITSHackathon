@@ -22,6 +22,7 @@ public class Translate {
             dLang = sLang;
             sLang = temp;
         }
+
         TranslateTextRequest request = new TranslateTextRequest()
                 .withText(msg)
                 .withSourceLanguageCode(sLang)

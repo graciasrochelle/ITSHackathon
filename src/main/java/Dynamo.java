@@ -52,8 +52,8 @@ public class Dynamo {
             System.err.println("Unable to add item: " + dLang + " " + sLang);
             System.err.println(e.getMessage());
         }
-
-
     }
+
+
 }
 
