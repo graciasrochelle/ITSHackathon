@@ -90,7 +90,6 @@ public class Dynamo {
             System.err.println(e.getMessage());
         }
 
-        System.out.println(translateValue);
         return translateValue;
     }
 
