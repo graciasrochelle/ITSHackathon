@@ -14,7 +14,7 @@ public class LogCommunicator {
             // Open given file in append mode.
             BufferedWriter out = new BufferedWriter(
                     new FileWriter("././PhpTester/lLog.txt", true));
-            out.write(ID+": " + message);
+            out.write(ID+": " + message + "\n");
             out.close();
         }
         catch (IOException e) {
@@ -28,7 +28,7 @@ public class LogCommunicator {
             // Open given file in append mode.
             BufferedWriter out = new BufferedWriter(
                     new FileWriter("././PhpTester/sLog.txt", true));
-            out.write("Lecturer: " + message);
+            out.write("Lecturer: " + message + "\n");
             out.close();
         }
         catch (IOException e) {

@@ -27,6 +27,7 @@ public class FileReader implements Runnable {
                         userDeatils.add(input.nextLine());
                     }
                     File ftemp = new File(fPath);
+                    System.out.println(userDeatils);
                     db.save(userDeatils);
                     input.close();
                     ftemp.delete();

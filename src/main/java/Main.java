@@ -9,12 +9,21 @@ public class Main {
          AWSCredentialsProvider awsCreds = DefaultAWSCredentialsProviderChain.getInstance();
          Translate tl = new Translate(awsCreds);
          Dynamo db = new Dynamo();
-//         FileReader myRunnable = new FileReader(db);
-//         Thread t = new Thread(myRunnable);
-//         t.start();
-         PingDynamoDB myRunnable = new PingDynamoDB(db);
+         FileReader FileDB = new FileReader(db);
+         PingDynamoDB myRunnable = new PingDynamoDB(db,awsCreds);
          Thread t = new Thread(myRunnable);
+        Thread fDB = new Thread(FileDB);
+
          t.start();
+        fDB.start();
+
+
+
+
+
+
+
+
 //       System.out.println(tl.translateList(db.load()));
 //        ArrayList<String> test = new ArrayList<>();
 //        test.add("1534011351456");

@@ -8,7 +8,7 @@ submit();
 ?>
 <form method="post">
     <label>Student ID</label>
-    <input type="text" value="s1234567" name="sID"/>
+    <input type="text" value="s12345678" name="sID"/>
     <label>Message</label>
     <input type="text" name="msg"/>
     <select name="sLang">

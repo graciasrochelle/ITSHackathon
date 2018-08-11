@@ -7,6 +7,7 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
@@ -29,27 +30,37 @@ public class Dynamo {
 
         table = dynamoDB.getTable("SQA");
     }
-
+    //  dlang 0
+    //  istrans 1
+    //  slang 2
+    //  id 3
+    //  message 4
+    // utype 5
     public void save(ArrayList<String> userDetails) {
-
-        String studentID = userDetails.get(0);
         String message = userDetails.get(1);
         String dLang = userDetails.get(2);
         String sLang = userDetails.get(3);
         Boolean type = Boolean.parseBoolean(userDetails.get(4));
         Boolean isTranslated = Boolean.parseBoolean(userDetails.get(5));
 
-
+        System.out.println(isTranslated);
         try {
             System.out.println("Adding a new item...");
+            //    dlang 0
+//    istrans 1
+//    slang 2
+//    id 3
+//    message 4
+            String id = String.valueOf(System.currentTimeMillis());
             PutItemOutcome outcome = table
-                    .putItem(new Item().withPrimaryKey("ID", String.valueOf(System.currentTimeMillis()))
-                            .with("studentID", studentID)
-                            .with("message", message)
+                    .putItem(new Item().withPrimaryKey("ID", id )
                             .with("dLang", dLang)
-                            .with("sLang", sLang)
-                            .with("utype", type)
                             .with("isTranslated", isTranslated)
+                            .with("sLang", sLang)
+                            .with("studentID", id)
+                            .with("message", message)
+                            .with("utype", type)
+
                     );
 
             System.out.println("PutItem succeeded");
@@ -66,10 +77,11 @@ public class Dynamo {
         String sLang;
         String ID;
         String message;
+        boolean utype;
 
         ArrayList<String> translateValue = new ArrayList<String>();
 
-        ScanSpec scanSpec = new ScanSpec().withProjectionExpression("ID,dLang,message,sLang,isTranslated");
+        ScanSpec scanSpec = new ScanSpec().withProjectionExpression("ID,dLang,message,sLang,isTranslated,utype");
 
         try {
             ItemCollection<ScanOutcome> items = table.scan(scanSpec);
@@ -83,12 +95,13 @@ public class Dynamo {
                 sLang = item.getString("sLang");
                 ID = item.getString("ID");
                 message = item.getString("message");
-
+                utype=item.getBOOL("utype");
                 translateValue.add(dLang);
                 translateValue.add(String.valueOf(isTranslated));
                 translateValue.add(sLang);
                 translateValue.add(ID);
                 translateValue.add(message);
+                translateValue.add(String.valueOf(utype));
             }
 
         }catch (Exception e){
@@ -102,17 +115,17 @@ public class Dynamo {
 
     public void update(ArrayList<String> updatedData){
         String ID = "";
-        String studentID = updatedData.get(0);
-        String message = updatedData.get(1);
-        String dLang = updatedData.get(2);
-        String sLang = updatedData.get(3);
-        boolean type = Boolean.parseBoolean(updatedData.get(4));
-        boolean isTranslated = Boolean.parseBoolean(updatedData.get(5));
+        String studentID = updatedData.get(3);
+        String message = updatedData.get(4);
+        String dLang = updatedData.get(0);
+        String sLang = updatedData.get(2);
+        Boolean type = Boolean.parseBoolean(updatedData.get(5));
+        Boolean isTranslated = true;
 
         System.out.println(studentID);
 
         for (int i = 0; i < updatedData.size()/5; i++) {
-            ID = updatedData.get(i*5);
+            ID = updatedData.get(i*5+3);
         }
 
         UpdateItemSpec updateItemSpec = new UpdateItemSpec()
@@ -136,6 +149,23 @@ public class Dynamo {
             System.err.println(e.getMessage());
         }
     }
+
+    public void delete(String id){
+        DeleteItemSpec deleteItemSpec = new DeleteItemSpec()
+                .withPrimaryKey(new PrimaryKey("ID", id));
+
+
+        try {
+            System.out.println("Attempting a conditional delete...");
+            table.deleteItem(deleteItemSpec);
+            System.out.println("DeleteItem succeeded");
+        }
+        catch (Exception e) {
+            System.err.println("Unable to delete item: " + id);
+            System.err.println(e.getMessage());
+        }
+    }
+
 
 
 }

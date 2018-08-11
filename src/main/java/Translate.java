@@ -29,6 +29,7 @@ public class Translate {
                 .withText(msg)
                 .withSourceLanguageCode(sLang)
                 .withTargetLanguageCode(dLang);
+        System.out.println(request);
         TranslateTextResult result = translate.translateText(request);
 
         return result.getTranslatedText();

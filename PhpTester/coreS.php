@@ -52,7 +52,7 @@ function submit()
         }
 
 function getStudentID(){
-    return "s12345678";
+    return "S1234567";
 };
 
 function getQuestion(){

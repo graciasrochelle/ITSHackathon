@@ -40,7 +40,7 @@ function saveMessage($id, $message, $lang)
             $entry = $lang . PHP_EOL;
             fwrite($file, $entry);
             // Q(0) OR A(1)
-            $entry = "1" . PHP_EOL;
+            $entry = "0" . PHP_EOL;
             fwrite($file, $entry);
             $entry = "0" . PHP_EOL; // isTranslated
             fwrite($file, $entry);
