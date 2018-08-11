@@ -19,10 +19,9 @@ function submit()
         {
             $count = 0;
             $saved = false;
-            $fileLoc = "";
 
             while(!$saved){
-                $fileLoc = "data/message" . $count . ".json";
+                $fileLoc = "data/message" . $count . ".txt";
 
                 if(!file_exists($fileLoc)) {
 
@@ -39,5 +38,4 @@ function submit()
                 }
                 $count++;
              }
-             echo $fileLoc;
         }
