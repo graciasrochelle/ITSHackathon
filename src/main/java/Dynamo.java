@@ -46,10 +46,10 @@ public class Dynamo {
                             .with("isTranslated", isTranslated)
                     );
 
-            System.out.println("PutItem succeeded:\n" + outcome.toString());
+            System.out.println("PutItem succeeded");
 
         } catch (Exception e) {
-            System.err.println("Unable to add item: " + dLang + " " + sLang);
+            System.err.println("Unable to add item");
             System.err.println(e.getMessage());
         }
     }
