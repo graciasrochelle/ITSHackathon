@@ -1,11 +1,16 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Dimmerworld
+ * Date: 11/08/2018
+ * Time: 8:13 PM
+ */
 function submit()
 {
     if (isset($_POST['btnSubmit']) && !empty($_POST['msg'])) {
-        $id = getLocationID();
-        $message = $_POST['lmsg'];
-        $lang = "en";
+        $id = $_POST['sID'];
+        $message = $_POST['msg'];
+        $lang = $_POST['sLang'];
         saveMessage($id, $message, $lang);
 
 }}
@@ -40,11 +45,3 @@ function submit()
                 $count++;
              }
         }
-
-function getLocationID(){
-    return "10.2.12";
-};
-
-function getQuestion(){
-    return "To whom to may concern, I require assistance of X topic.";
-}
