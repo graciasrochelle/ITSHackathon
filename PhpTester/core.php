@@ -7,15 +7,37 @@
  */
 function submit()
 {
-    if (isset($_POST['btnSubmit'])) {
+    if (isset($_POST['btnSubmit']) && !empty($_POST['msg'])) {
         $id = $_POST['sID'];
         $message = $_POST['msg'];
         $lang = $_POST['sLang'];
+        saveMessage($id, $message, $lang);
 
-        $myObj->name = "John";
-        $myObj->age = 30;
-        $myObj->city = "New York";
+}}
 
-        echo "<h1>Student ID: " . $id . "</h1><h1> Message: " . $message . "</h1><h1>sLang: " . $lang . "</h1>";
-    }
-}
+    function saveMessage($id, $message, $lang)
+        {
+            $count = 0;
+            $saved = false;
+            $fileLoc = "";
+
+            while(!$saved){
+                $fileLoc = "data/message" . $count . ".json";
+
+                if(!file_exists($fileLoc)) {
+
+                    $file = fopen($fileLoc, 'w');
+                    $entry = $id . PHP_EOL;
+                    fwrite($file, $entry);
+                    $entry = $message . PHP_EOL;
+                    fwrite($file, $entry);
+                    $entry = $lang . PHP_EOL;
+                    fwrite($file, $entry);
+
+                    fclose($file);
+                    $saved = true;
+                }
+                $count++;
+             }
+             echo $fileLoc;
+        }
